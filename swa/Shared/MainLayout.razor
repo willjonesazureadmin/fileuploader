@@ -1,0 +1,50 @@
+﻿@inherits LayoutComponentBase
+@inject StateService _stateService
+@inject NavigationManager _nav
+<div class="top-row px-4 auth">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-2">
+                <h4>S.A.L.S.A</h4>
+            </div>
+            <div class="col-lg-5">
+                <input type="text" class="input-lg" value="@_stateService.fullName" disabled placeholder="No Customer Selected"/>
+                
+                <Button class="btn btn-success" @onclick="ChangeCustomer"><span class="oi oi-chevron-bottom" aria-hidden="true"></span></Button>
+            </div>
+            <div class="col-lg-5">
+                <LoginDisplay></LoginDisplay>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page">
+    <div class="sidebar">
+        <NavMenu />
+    </div>
+    <main>
+        <article class="content px-4">
+            @Body
+        </article>
+    </main>
+</div>
+
+@code {
+
+    protected override void OnInitialized()
+    {
+        _stateService.OnChange += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        _stateService.OnChange -= StateHasChanged;
+    }
+
+    private void ChangeCustomer()
+    {
+        _stateService.RemoveCustomer();
+        _nav.NavigateTo("/");
+    }
+
+}

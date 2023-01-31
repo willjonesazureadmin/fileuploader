@@ -1,0 +1,61 @@
+﻿@page "/upload"
+@inject ICustomerService _customerService;
+@inject StateService _stateService;
+@inject NavigationManager _nav;
+@inject IJSRuntime JS
+
+<InputFile OnChange="@LoadFiles" multiple /> 
+
+<p>
+    <img src="@imageSource" />
+</p>
+
+
+@code{
+    public MultipartFormDataContent content;
+
+    public string imageSource {get; set;}
+    List<fileInfo> files = new List<fileInfo>();
+
+    public class fileInfo
+    {
+        public string Path { get; set; }
+        public string Name { get; set; }
+        public double Size { get; set; }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (_stateService.Customer == null)
+        {
+            _nav.NavigateTo("/");
+        }
+        else
+        {
+
+        }
+
+    }
+
+    private async void LoadFiles(InputFileChangeEventArgs e)
+    {
+        var maxFileSize = 512000;
+        var format = "image/jpg";
+        var imageFile = await e.File.RequestImageFileAsync(format, 640, 480);
+
+        var fileStream = imageFile.OpenReadStream(maxFileSize);
+
+        var _fileName = e.File.Name;
+
+        var MediaStream = new MemoryStream();
+        await fileStream.CopyToAsync(MediaStream);
+
+        var tmp =  $"data:{format};base64,{Convert.ToBase64String(MediaStream.ToArray())}";
+        byte[] imageData = Convert.FromBase64String(tmp);
+        imageSource = tmp;
+        Console.WriteLine(imageSource);
+
+        
+
+    }
+}

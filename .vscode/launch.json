@@ -1,0 +1,42 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "fileuploader.api",
+            "type": "coreclr",
+            "request": "attach",
+            "processId": "${command:azureFunctions.pickProcess}"
+        },
+        // {
+        //     "name": "fileuploader.swa",
+        //     "type": "blazorwasm",
+        //     "request": "launch",
+        //     "cwd": "${workspaceFolder}/swa",
+        //     "browser": "edge"
+        // },
+        {
+            "name": "SWA Launch",
+            "preLaunchTask": "swa",
+            "type": "PowerShell",
+            "request": "launch"
+        }
+    //     },
+    //     {
+    //         "name": ".NET Core Debug Blazor Web Assembly in Chrome",
+    //         "type": "blazorwasm",
+    //         "request": "launch",
+    //         "timeout": 30000,
+    //         "url": "http://localhost:5010",
+    //         "webRoot": "${workspaceFolder}",
+    //    }
+    ],
+    "compounds": [
+        {
+            "name": "Launch All",
+            "configurations": [
+                "fileuploader.api",
+                "SWA Launch"
+        ]
+        }
+    ]
+}

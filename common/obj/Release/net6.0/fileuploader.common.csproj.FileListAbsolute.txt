@@ -1,0 +1,12 @@
+C:\Users\will.jones\repos\fileuploader\common\bin\Release\net6.0\fileuploader.common.deps.json
+C:\Users\will.jones\repos\fileuploader\common\bin\Release\net6.0\fileuploader.common.dll
+C:\Users\will.jones\repos\fileuploader\common\bin\Release\net6.0\fileuploader.common.pdb
+C:\Users\will.jones\repos\fileuploader\common\obj\Release\net6.0\fileuploader.common.csproj.AssemblyReference.cache
+C:\Users\will.jones\repos\fileuploader\common\obj\Release\net6.0\fileuploader.common.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\will.jones\repos\fileuploader\common\obj\Release\net6.0\fileuploader.common.AssemblyInfoInputs.cache
+C:\Users\will.jones\repos\fileuploader\common\obj\Release\net6.0\fileuploader.common.AssemblyInfo.cs
+C:\Users\will.jones\repos\fileuploader\common\obj\Release\net6.0\fileuploader.common.csproj.CoreCompileInputs.cache
+C:\Users\will.jones\repos\fileuploader\common\obj\Release\net6.0\fileuploader.common.dll
+C:\Users\will.jones\repos\fileuploader\common\obj\Release\net6.0\refint\fileuploader.common.dll
+C:\Users\will.jones\repos\fileuploader\common\obj\Release\net6.0\fileuploader.common.pdb
+C:\Users\will.jones\repos\fileuploader\common\obj\Release\net6.0\ref\fileuploader.common.dll

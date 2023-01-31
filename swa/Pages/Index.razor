@@ -1,0 +1,91 @@
+﻿@page "/"
+@inject ICustomerService _customerService;
+@inject StateService _stateService;
+@inject NavigationManager _nav;
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@inject IAccessTokenProvider TokenProvider;
+
+<PageTitle>Home</PageTitle>
+
+<div class="text-center bg-blue-100">
+    <input class="border-4 w-1/3 rounded m-6 p-6 h-8
+               border-blue-300" @bind-value="Surname" @onfocusout="Search" placeholder="Search by Surname" />
+    <input class="border-4 w-1/3 rounded m-6 p-6 h-8
+               border-blue-300" @bind-value="FirstName" @onfocusout="Search" placeholder="Search by First Name" />
+</div>
+
+
+@if(response.status == status.success)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Surname</th>
+                <th>First Name</th>
+                <th>D.o.B</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+
+                @foreach (var c in response.customers)
+                {
+                    <tr>
+                        <td>@c.Surname</td>
+                        <td>@c.FirstName</td>
+                        <td>@c.BirthDate.ToShortDateString()</td>
+                        <td><button class="btn btn-block btn-primary" @onclick="@(() => SelectCustomer(c))"
+                    style="color: rgb(255, 255, 255); background-color: rgb(49, 56, 215);" type="button">Select</button>
+                        </td>
+                    </tr>
+                }
+    
+        </tbody>
+    </table>
+
+}
+else
+{
+
+}
+
+@code {
+
+    public string Surname { get; set; }
+    public string FirstName { get; set; }
+    public string BirthDate { get; set; }
+    public CustomersResponseModel response = new CustomersResponseModel();
+
+    private async Task Search()
+    {
+        try
+        {
+            var t = await TokenProvider.RequestAccessToken();
+            
+        if (t.TryGetToken(out var token))
+        {
+            if (token == null)
+                throw new Exception("Access token is null. BUG?");
+                Console.WriteLine(token.Value);
+        }
+            response =  await _customerService.GetCustomers(FirstName, Surname, BirthDate);
+            Console.WriteLine($"Records found {response.customers.Count()}");
+        }
+        catch
+        {
+            
+        }        
+
+
+
+    }
+
+    private void SelectCustomer(CustomerModel c)
+    {
+        _stateService.SetCustomer(c);
+        _nav.NavigateTo("/upload");
+    }
+
+
+
+}
